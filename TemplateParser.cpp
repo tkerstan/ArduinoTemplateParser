@@ -155,7 +155,7 @@ int16_t TemplateParser::processTemplateUntilNextMatch(File* templateFile,
 }
 
 void TemplateParser::processSingleTemplate(File* templateFile,
-		const char* const *templateStrings, char** replacementStrings,
+		const char* const *templateStrings, const char* const* replacementStrings,
 		uint8_t nrOfStrings, Print* p)
 {
 	int16_t matchIdx = 0;
