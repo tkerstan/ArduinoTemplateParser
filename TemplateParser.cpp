@@ -25,6 +25,8 @@
 
 const static uint16_t bufferSize = 50;
 
+const static char progSelectTagOpen[] PROGMEM = "<select name=\"";
+const static char progSelectTagClose[] PROGMEM = "\">";
 const static char progOptionTagOpen[] PROGMEM = "<option";
 const static char progOptionTagSelected[] PROGMEM = " selected";
 const static char progOptionTagValueOpen[] PROGMEM = " value=\"";
@@ -173,7 +175,29 @@ void TemplateParser::processSingleTemplate(File* templateFile,
 
 }
 
-void TemplateParser::optionListItem(const char* name, const char* value,
+void TemplateParser::selectList(const char* selectName, const char* const* names, const char* const* values, uint8_t selected, uint8_t size, Print* p)
+{
+    uint8_t i = 0;
+    char selectTagOpen[sizeof(progSelectTagOpen)];
+    char selectTagClose[sizeof(progSelectTagClose)];
+
+    strcpy_P(selectTagOpen, progSelectTagOpen);
+    strcpy_P(selectTagClose, progSelectTagClose);
+
+    p->print(selectTagOpen);
+    p->print(selectName);
+    p->print(selectTagClose);
+
+    for (; i < size; i++)
+    {
+        if (i == selected)
+            selectListOption(names[i], values[i], 1, p);
+        else
+            selectListOption(names[i], values[i], 0, p);
+    }
+}
+
+void TemplateParser::selectListOption(const char* name, const char* value,
 		uint8_t selected, Print* p)
 {
 	char optionTagOpen[sizeof(progOptionTagOpen)];

@@ -35,7 +35,8 @@ public:
 	void processSingleTemplate(File* templateFile, const char* const *templateStrings,
 			char** replacementStrings, uint8_t nrOfStrings, Print* p);
 
-	void optionListItem(const char* name, const char* value, uint8_t selected,
+	void selectList(const char* selectName, const char* const* names, const char* const* values, uint8_t selected, uint8_t size, Print* p);
+	void selectListOption(const char* name, const char* value, uint8_t selected,
 			Print* p);
 
 private:
